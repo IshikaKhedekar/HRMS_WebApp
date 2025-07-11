@@ -1,0 +1,241 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Site.master.vb" Inherits="HRMS_WebApp.Site" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>HRM Portal</title>
+
+    <!-- DevExtreme & FontAwesome -->
+    <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/23.1.6/css/dx.light.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn3.devexpress.com/jslib/23.1.6/js/dx.all.js"></script>
+
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; }
+        .page-container { display: flex; }
+
+        /* Sidebar */
+        .side-nav { width: 250px; background-color: #343a40; color: white; min-height: 100vh; transition: width 0.3s ease; overflow-x: hidden; flex-shrink: 0; }
+        .side-nav.collapsed { width: 60px; }
+        .side-nav .logo { padding: 20px; text-align: center; background-color: #007bff; }
+        .side-nav .logo h3 { margin: 0; font-size: 22px; }
+        .side-nav.collapsed .logo h3 { display: none; }
+        .side-nav ul { list-style-type: none; padding: 0; margin: 0; }
+        .side-nav ul li a { color: #adb5bd; text-decoration: none; display: flex; align-items: center; padding: 14px 20px; transition: background-color 0.2s; }
+        .side-nav ul li a:hover { background-color: #495057; color: white; }
+        .side-nav ul li i { font-size: 18px; width: 25px; }
+        .side-nav .nav-label { margin-left: 10px; }
+        .side-nav.collapsed .nav-label { display: none; }
+
+        /* Header */
+        .main-wrapper { flex-grow: 1; display: flex; flex-direction: column; }
+        .top-header { background-color: #ffffff; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #dee2e6; }
+        .hamburger { font-size: 22px; background: none; border: none; color: #333; cursor: pointer; }
+        .user-info { font-size: 16px; display: flex; align-items: center; }
+
+        /* Notification */
+        .notification-dropdown { position: relative; margin-right: 10px; }
+        .notification-dropdown i { font-size: 20px; color: #333; cursor: pointer; }
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: bold;
+            min-width: 18px;
+            text-align: center;
+        }
+        .notification-menu {
+            display: none;
+            position: absolute;
+            top: 30px;
+            right: 0;
+            min-width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            background-color: #fff;
+            border: 1px solid rgba(0, 0, 0, .15);
+            border-radius: 8px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15);
+            z-index: 1000;
+        }
+        .notification-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .notification-item:last-child { border-bottom: none; }
+        .notification-item-title { font-weight: bold; color: #007bff; margin-bottom: 5px; }
+        .notification-item-meta { font-size: 0.85rem; color: #6c757d; }
+        .notification-item-action { text-align: right; margin-top: 5px; }
+
+        .logout-btn { color: #dc3545; text-decoration: none; font-weight: bold; margin-left: 10px; }
+        .content-area { padding: 25px 30px; flex-grow: 1; }
+
+        .menu-locked a { color: #6c757d !important; pointer-events: none; cursor: not-allowed; }
+        .menu-locked a:hover { background-color: inherit !important; }
+        /* Site.master ke <style> tag ke andar ye add karein */
+
+/* Submenu Styling */
+.side-nav ul .submenu {
+    list-style-type: none;
+    padding-left: 0;
+    max-height: 0; /* By default hidden */
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    background-color: #2a2d33; /* Submenu ka background thoda dark */
+}
+.side-nav ul .submenu li a {
+    padding-left: 45px; /* Thoda indent */
+    font-size: 0.9em;
+}
+.side-nav ul .submenu li a:hover {
+    background-color: #007bff; /* Hover color */
+}
+
+/* For the arrow icon */
+.float-right { float: right; transition: transform 0.3s; }
+.has-submenu.active .float-right { transform: rotate(180deg); } /* Rotate on active */
+
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="page-container">
+            <!-- Sidebar -->
+            <div class="side-nav" id="sidebar">
+                <div class="logo"><h3>Menus</h3></div>
+                <ul>
+                    <li><a href="Dashboard.aspx"><i class="fas fa-tachometer-alt"></i><span class="nav-label">Dashboard</span></a></li>
+                    <li><a href="MyProfile.aspx"><i class="fas fa-user-circle"></i><span class="nav-label">My Profile</span></a></li>
+
+
+<li class="has-submenu"> <%-- Ye class submenu ke liye hai --%>
+    <a href="#"><i class="fas fa-calendar-alt"></i><span class="nav-label">Leave Management</span><i class="fas fa-chevron-down float-right ms-auto"></i></a>
+    <ul class="submenu">
+        <li><a href="LeaveManagement.aspx"><span class="nav-label">Overview & Apply</span></a></li>
+        <li runat="server" id="liLeaveReportsSubMenu"><a href="LeaveReport.aspx"><span class="nav-label">Leave Reports</span></a></li> <%-- Leave Reports ke liye naya sub-menu link --%>
+    </ul>
+</li>
+                    <li><a href="Attendance.aspx"><i class="fas fa-clock"></i><span class="nav-label">Attendance</span></a></li>
+                    <li><a href="EmployeeDirectory.aspx"><i class="fas fa-users"></i><span class="nav-label">Employee Directory</span></a></li>
+                    <li><a href="Announcements.aspx"><i class="fas fa-bullhorn"></i><span class="nav-label">Announcements</span></a></li>
+                    <li runat="server" id="liRecruitment"><a href="Recruitment.aspx"><i class="fas fa-briefcase"></i><span class="nav-label">Recruitment</span></a></li>
+                    <li runat="server" id="liPerformance"><a href="Performance.aspx"><i class="fas fa-chart-line"></i><span class="nav-label">Performance</span></a></li>
+                    <li runat="server" id="liPayroll"><a href="Payroll.aspx"><i class="fas fa-file-invoice-dollar"></i><span class="nav-label">Payroll</span></a></li>
+                    <li runat="server" id="liPolicies"><a href="Policies.aspx"><i class="fas fa-file-alt"></i><span class="nav-label">Company Policies</span></a></li>
+                    <li runat="server" id="liAdminPanel"><a href="Settings.aspx" style="background-color: #dc3545; color: white;"><i class="fas fa-cogs"></i><span class="nav-label">Admin Panel</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Main Wrapper -->
+            <div class="main-wrapper">
+                <div class="top-header">
+                    <button class="hamburger" onclick="toggleSidebar()" type="button"><i class="fas fa-bars"></i></button>
+                    <div class="user-info">
+                        <div class="notification-dropdown">
+                            <div id="notificationBell">
+                                <i class="fas fa-bell">
+                                    <asp:Literal ID="litNotificationBadge" runat="server" Visible="false"></asp:Literal>
+                                </i>
+                            </div>
+                            <div class="notification-menu" id="notificationPanel">
+                                <asp:Repeater ID="rptNotifications" runat="server">
+                                    <ItemTemplate>
+                                        <div class="notification-item">
+                                            <div class="notification-item-title">Leave Request from <%# Eval("EmployeeName") %></div>
+                                            <div class="notification-item-meta">
+                                                <%# Eval("LeaveType") %> from <%# Eval("StartDate", "{0:dd-MMM-yyyy}") %> to <%# Eval("EndDate", "{0:dd-MMM-yyyy}") %><br />
+                                                Reason: <%# Eval("Reason") %>
+                                            </div>
+                                            <div class="notification-item-action">
+                                                <a href="LeaveManagement.aspx#team-approvals-tab" class="btn btn-sm btn-outline-info">Go to Approvals</a>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                                <asp:Label ID="lblNoNotifications" runat="server" Text="No new notifications." CssClass="text-muted p-3 d-block" Visible="false"></asp:Label>
+                            </div>
+                        </div>
+                        <asp:Label ID="lblWelcomeMessage" runat="server" CssClass="ms-3"></asp:Label> |
+                        <asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" CssClass="logout-btn">Logout</asp:LinkButton>
+                    </div>
+                </div>
+
+                <div class="content-area">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("collapsed");
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const bell = document.getElementById("notificationBell");
+            const panel = document.getElementById("notificationPanel");
+
+            bell.addEventListener("click", function (e) {
+                e.stopPropagation();
+                panel.style.display = (panel.style.display === "none" || panel.style.display === "") ? "block" : "none";
+            });
+
+            document.addEventListener("click", function () {
+                panel.style.display = "none";
+            });
+
+            panel.addEventListener("click", function (e) {
+                e.stopPropagation();
+            });
+        });
+
+        // Site.master ke <script> block ke andar ye code add karein
+        $(document).ready(function () {
+            // Submenu toggle logic
+            $('.side-nav .has-submenu > a').on('click', function (e) {
+                e.preventDefault(); // Default link behavior roko
+
+                var parentLi = $(this).parent('li');
+                var submenu = $(this).next('.submenu');
+
+                if (parentLi.hasClass('active')) {
+                    parentLi.removeClass('active');
+                    submenu.css('max-height', '0px');
+                } else {
+                    // Close other open submenus
+                    $('.side-nav .has-submenu.active .submenu').css('max-height', '0px');
+                    $('.side-nav .has-submenu.active').removeClass('active');
+
+                    // Open current submenu
+                    parentLi.addClass('active');
+                    submenu.css('max-height', submenu.prop('scrollHeight') + 'px');
+                }
+            });
+
+            // Ensure dropdowns are correctly initialized for notification bell (optional, if issues persist)
+            var notificationDropdownElement = document.getElementById('notificationDropdown');
+            if (notificationDropdownElement) {
+                var dropdownInstance = new bootstrap.Dropdown(notificationDropdownElement);
+                notificationDropdownElement.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    dropdownInstance.toggle();
+                });
+            }
+        });
+
+
+    </script>
+
+
+
+</body>
+</html>
