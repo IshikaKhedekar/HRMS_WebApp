@@ -126,6 +126,8 @@
                     <li><a href="Attendance.aspx"><i class="fas fa-clock"></i><span class="nav-label">Attendance</span></a></li>
                     <li><a href="EmployeeDirectory.aspx"><i class="fas fa-users"></i><span class="nav-label">Employee Directory</span></a></li>
                     <li><a href="Announcements.aspx"><i class="fas fa-bullhorn"></i><span class="nav-label">Announcements</span></a></li>
+                    <li runat="server" id="liResignation"><a href="Resignation.aspx"><i class="fas fa-sign-out-alt"></i><span class="nav-label">Resignation</span></a></li> <%-- NAYA LINK --%>
+
                     <li runat="server" id="liRecruitment"><a href="Recruitment.aspx"><i class="fas fa-briefcase"></i><span class="nav-label">Recruitment</span></a></li>
                     <li runat="server" id="liPerformance"><a href="Performance.aspx"><i class="fas fa-chart-line"></i><span class="nav-label">Performance</span></a></li>
                     <li runat="server" id="liPayroll"><a href="Payroll.aspx"><i class="fas fa-file-invoice-dollar"></i><span class="nav-label">Payroll</span></a></li>

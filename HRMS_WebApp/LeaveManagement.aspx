@@ -12,6 +12,12 @@
         .leave-balance-item:last-child { border-bottom: none; }
         .leave-balance-count { font-size: 1.2rem; font-weight: bold; color: #007bff; }
         .total-leave { color: #6c757d; }
+
+        /* CSS for Leave Statuses - UPDATED to match inline generation */
+        .status-Pending { color: orange; font-weight: bold; }
+        .status-ApprovedbyManager, .status-ApprovedbyHR { color: green; font-weight: bold; } /* Combines "Approved by Manager" and "Approved by HR" */
+        .status-Rejected { color: red; font-weight: bold; }
+        .status-default, .status-unknown { color: gray; }
     </style>
 </asp:Content>
 
@@ -32,16 +38,17 @@
     </ul>
 
     <div class="tab-content border border-top-0 p-3 bg-white">
-        <!-- ===== MY LEAVE DASHBOARD TAB (UPDATED) ===== -->
+        <!-- ===== MY LEAVE DASHBOARD TAB ===== -->
         <div class="tab-pane fade show active" id="my-dashboard" role="tabpanel">
             <div class="row">
                 <div class="col-md-5">
                     <div class="leave-balance-card">
                         <div class="leave-balance-card-header">Your Leave Balance</div>
                         <div class="section-card-body">
-                            <div class="leave-balance-item"><span class="leave-type">Casual Leave</span><span class="leave-balance-count"><asp:Label ID="lblCasualLeaveBalanceUsed" runat="server" Text="0"></asp:Label>/<asp:Label ID="lblCasualLeaveTotal" runat="server" Text="0"></asp:Label> <span class="total-leave">days</span></span></div>
-                            <div class="leave-balance-item"><span class="leave-type">Sick Leave</span><span class="leave-balance-count"><asp:Label ID="lblSickLeaveBalanceUsed" runat="server" Text="0"></asp:Label>/<asp:Label ID="lblSickLeaveTotal" runat="server" Text="0"></asp:Label> <span class="total-leave">days</span></span></div>
-                            <div class="leave-balance-item"><span class="leave-type">Paid Leave</span><span class="leave-balance-count"><asp:Label ID="lblPaidLeaveBalanceUsed" runat="server" Text="0"></asp:Label>/<asp:Label ID="lblPaidLeaveTotal" runat="server" Text="0"></asp:Label> <span class="total-leave">days</span></span></div>
+                            <div class="leave-balance-item"><span class="leave-type">Casual Leave</span><span class="leave-balance-count"><asp:Label ID="lblCasualLeaveBalanceAvailable" runat="server" Text="0"></asp:Label>/<asp:Label ID="lblCasualLeaveTotal" runat="server" Text="12"></asp:Label> <span class="total-leave">days</span></span></div>
+                            <div class="leave-balance-item"><span class="leave-type">Sick Leave</span><span class="leave-balance-count"><asp:Label ID="lblSickLeaveBalanceAvailable" runat="server" Text="0"></asp:Label>/<asp:Label ID="lblSickLeaveTotal" runat="server" Text="8"></asp:Label> <span class="total-leave">days</span></span></div>
+                            <%-- Paid Leave: Shows 'Taken' count as requested --%>
+                            <div class="leave-balance-item"><span class="leave-type">Paid Leave Taken</span><span class="leave-balance-count"><asp:Label ID="lblPaidLeaveCountTaken" runat="server" Text="0"></asp:Label> <span class="total-leave">days</span></span></div>
                         </div>
                     </div>
                 </div>
@@ -64,7 +71,16 @@
                 <div class="section-card-body">
                     <asp:Repeater ID="rptUpcomingMyLeaves" runat="server">
                         <HeaderTemplate><table class="table table-sm table-striped"><thead><tr><th>Start Date</th><th>End Date</th><th>Leave Type</th><th>Status</th><th>Reason</th></tr></thead><tbody></HeaderTemplate>
-                        <ItemTemplate><tr><td><%# Eval("StartDate", "{0:dd-MMM-yyyy}") %></td><td><%# Eval("EndDate", "{0:dd-MMM-yyyy}") %></td><td><%# Eval("LeaveType") %></td><td><%# Eval("Status") %></td><td><%# Eval("Reason") %></td></tr></ItemTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td><%# Eval("StartDate", "{0:dd-MMM-yyyy}") %></td>
+                                <td><%# Eval("EndDate", "{0:dd-MMM-yyyy}") %></td>
+                                <td><%# Eval("LeaveType") %></td>
+                                <%-- UPDATED: Use inline expression for status class --%>
+                                <td class="status-<%# Eval("Status").ToString().Replace(" ", "") %>"><%# Eval("Status") %></td>
+                                <td><%# Eval("Reason") %></td>
+                            </tr>
+                        </ItemTemplate>
                         <FooterTemplate></tbody></table></FooterTemplate>
                     </asp:Repeater>
                     <asp:Label ID="lblNoUpcomingMyLeaves" runat="server" Text="No upcoming leaves." Visible="false" CssClass="text-muted"></asp:Label>
@@ -72,7 +88,7 @@
             </div>
         </div>
 
-        <!-- ===== APPLY FOR LEAVE TAB (EXISTING) ===== -->
+        <!-- ===== APPLY FOR LEAVE TAB ===== -->
         <div class="tab-pane fade" id="apply-leave" role="tabpanel">
             <div class="section-card">
                 <div class="section-card-header">New Leave Application</div>
@@ -94,14 +110,22 @@
             </div>
         </div>
 
-        <!-- ===== MY LEAVE HISTORY TAB (EXISTING) ===== -->
+        <!-- ===== MY LEAVE HISTORY TAB ===== -->
         <div class="tab-pane fade" id="my-history" role="tabpanel">
             <div class="section-card">
                 <div class="section-card-header">Your Past Leave Applications</div>
                 <div class="section-card-body">
                     <asp:Repeater ID="rptMyLeaves" runat="server">
                         <HeaderTemplate><table class="table table-striped data-table"><thead><tr><th>Start Date</th><th>End Date</th><th>Leave Type</th><th>Status</th></tr></thead><tbody></HeaderTemplate>
-                        <ItemTemplate><tr><td><%# Eval("StartDate", "{0:dd-MMM-yyyy}") %></td><td><%# Eval("EndDate", "{0:dd-MMM-yyyy}") %></td><td><%# Eval("LeaveType") %></td><td><%# Eval("Status") %></td></tr></ItemTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td><%# Eval("StartDate", "{0:dd-MMM-yyyy}") %></td>
+                                <td><%# Eval("EndDate", "{0:dd-MMM-yyyy}") %></td>
+                                <td><%# Eval("LeaveType") %></td>
+                                <%-- UPDATED: Use inline expression for status class --%>
+                                <td class="status-<%# Eval("Status").ToString().Replace(" ", "") %>"><%# Eval("Status") %></td>
+                            </tr>
+                        </ItemTemplate>
                         <FooterTemplate></tbody></table></FooterTemplate>
                     </asp:Repeater>
                     <asp:Label ID="lblNoMyLeavesHistory" runat="server" Text="No leave history found." Visible="false" CssClass="text-muted"></asp:Label>
@@ -109,7 +133,7 @@
             </div>
         </div>
 
-        <!-- ===== TEAM APPROVALS TAB (EXISTING) ===== -->
+        <!-- ===== TEAM APPROVALS TAB ===== -->
         <div class="tab-pane fade" id="team-approvals" role="tabpanel">
             <div class="section-card">
                 <div class="section-card-header">Pending Leave Requests for Your Team</div>

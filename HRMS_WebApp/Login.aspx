@@ -3,143 +3,185 @@
 <!DOCTYPE html>
 <html>
 <head runat="server">
-    <title>Login - Indus Analytics HRM</title>
-
-    <!-- DevExpress Styles & jQuery -->
-    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/23.1.6/css/dx.light.css" />
-    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/23.1.6/js/dx.all.js"></script>
-
-    <!-- Fonts & Styles -->
+    <title>Indus Analytics HRMS</title>
+    <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/23.1.6/css/dx.light.css" />
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn3.devexpress.com/jslib/23.1.6/js/dx.all.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
     <style>
-        body {
+        * {
+            box-sizing: border-box;
+        }
+
+        body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to right, #007bff, #00c6ff);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        /* Splash Screen */
-        .splash {
-            position: fixed;
-            width: 100%;
             height: 100%;
-            background: #fff;
-            z-index: 9999;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .main-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* LEFT SIDE */
+        .left-side {
+            flex: 1;
+            /* --- FIXED: Separated background shorthand properties --- */
+            background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c');
+            background-position: center;
+            background-size: cover; /* 'cover' is a valid value for background-size */
+            background-repeat: no-repeat;
+            /* --- END FIX --- */
+            position: relative;
+            color: white;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeInLeft 1.2s ease-out;
+        }
+
+        .left-side::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .left-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .left-content h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .left-content p {
+            font-size: 18px;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        /* RIGHT SIDE */
+        .right-side {
+            flex: 1;
+            background: #f4f8fb;
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            animation: fadeOut 2s ease-in-out 3s forwards;
+            animation: fadeInRight 1.2s ease-out;
         }
 
-        .splash h1 {
-            font-size: 3rem;
-            color: #007bff;
-            animation: slideIn 1s ease-out;
+        .login-box {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            animation: slideUp 1.2s ease-out;
         }
 
-        .splash p {
-            font-size: 1.2rem;
-            color: #333;
-            margin-top: 10px;
-            animation: slideIn 1.5s ease-out;
-        }
-
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Login Form Styling */
-        .login-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            width: 350px;
+        .login-box h2 {
             text-align: center;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: showLogin 1s ease-in-out 3.5s forwards;
-        }
-
-        @keyframes showLogin {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .login-container h2 {
             margin-bottom: 25px;
             color: #333;
         }
 
         .form-group {
             margin-bottom: 20px;
-            text-align: left;
         }
 
         .form-group label {
+            display: block;
+            margin-bottom: 6px;
             font-weight: 500;
         }
 
+        .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .login-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #0056b3;
+        }
+
         .error-message {
-            color: #d9534f;
+            color: red;
             margin-top: 15px;
             font-weight: bold;
+            text-align: center;
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-60px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(60px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-
 <body>
-    <!-- Splash Screen -->
-    <div class="splash">
-        <h1>Indus Analytics</h1>
-        <p>Print Process Automation Partner</p>
-    </div>
-
-    <!-- Login Form -->
     <form id="form1" runat="server">
-        <div class="login-container">
-            <h2>HRM Portal Login</h2>
-
-            <div class="form-group">
-                <label>Email Address</label>
-                <asp:TextBox ID="txtEmail" runat="server" CssClass="dx-texteditor-input" Width="100%"></asp:TextBox>
+        <div class="main-container">
+            <!-- Left Side -->
+            <div class="left-side">
+                <div class="left-content">
+                    <h1>Indus Analytics</h1>
+                    <p>Empowering HR through seamless <strong>Print Process Automation</strong>. Manage attendance, leaves, and payroll all in one place.</p>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label>Password</label>
-                <asp:TextBox ID="txtPassword" runat="server" CssClass="dx-texteditor-input" TextMode="Password" Width="100%"></asp:TextBox>
-            </div>
+            <!-- Right Side: Login Form -->
+            <div class="right-side">
+                <div class="login-box">
+                    <h2>HRMS Login</h2>
 
-            <asp:Button ID="btnLogin" runat="server" Text="LOGIN" OnClick="btnLogin_Click"
-                CssClass="dx-button dx-button-default dx-button-mode-contained" Width="100%" />
+                    <div class="form-group">
+                        <label for="txtEmail">Email</label>
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" />
+                    </div>
 
-            <div class="error-message">
-                <asp:Label ID="lblError" runat="server" Text=""></asp:Label>
+                    <div class="form-group">
+                        <label for="txtPassword">Password</label>
+                        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control" TextMode="Password" />
+                    </div>
+
+                    <asp:Button ID="btnLogin" runat="server" Text="Sign In" CssClass="login-btn" OnClick="btnLogin_Click" />
+
+                    <div class="error-message">
+                        <asp:Label ID="lblError" runat="server" Text=""></asp:Label>
+                    </div>
+                </div>
             </div>
         </div>
     </form>

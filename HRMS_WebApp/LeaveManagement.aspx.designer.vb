@@ -23,13 +23,13 @@ Partial Public Class LeaveManagement
     Protected WithEvents liTeamApprovalsTab As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''lblCasualLeaveBalanceUsed control.
+    '''lblCasualLeaveBalanceAvailable control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblCasualLeaveBalanceUsed As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblCasualLeaveBalanceAvailable As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblCasualLeaveTotal control.
@@ -41,13 +41,13 @@ Partial Public Class LeaveManagement
     Protected WithEvents lblCasualLeaveTotal As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblSickLeaveBalanceUsed control.
+    '''lblSickLeaveBalanceAvailable control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblSickLeaveBalanceUsed As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblSickLeaveBalanceAvailable As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblSickLeaveTotal control.
@@ -59,22 +59,13 @@ Partial Public Class LeaveManagement
     Protected WithEvents lblSickLeaveTotal As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblPaidLeaveBalanceUsed control.
+    '''lblPaidLeaveCountTaken control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPaidLeaveBalanceUsed As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblPaidLeaveTotal control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblPaidLeaveTotal As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblPaidLeaveCountTaken As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''rptCompanyHolidays control.

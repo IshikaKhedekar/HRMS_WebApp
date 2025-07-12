@@ -137,6 +137,7 @@
     <Content Include="Performance.aspx" />
     <Content Include="Policies.aspx" />
     <Content Include="Recruitment.aspx" />
+    <Content Include="Resignation.aspx" />
     <Content Include="ReviewDetail.aspx" />
     <Content Include="Settings.aspx" />
     <Content Include="Web.config" />
@@ -249,6 +250,13 @@
     </Compile>
     <Compile Include="Recruitment.aspx.vb">
       <DependentUpon>Recruitment.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Resignation.aspx.designer.vb">
+      <DependentUpon>Resignation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Resignation.aspx.vb">
+      <DependentUpon>Resignation.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="ReviewDetail.aspx.designer.vb">
