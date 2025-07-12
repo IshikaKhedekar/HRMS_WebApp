@@ -14,6 +14,15 @@ Option Explicit On
 Partial Public Class ReviewDetail
 
     '''<summary>
+    '''hdnReviewID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hdnReviewID As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''lblEmployeeName control.
     '''</summary>
     '''<remarks>
@@ -32,6 +41,69 @@ Partial Public Class ReviewDetail
     Protected WithEvents litEmployeeComments As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
+    '''pnlPeerFeedback control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlPeerFeedback As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''rptPeerFeedback control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptPeerFeedback As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''lblNoPeerFeedback control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNoPeerFeedback As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''rptEmployeeKPIs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptEmployeeKPIs As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''lblNoKPIsAssigned control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNoKPIsAssigned As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''Repeater1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Repeater1 As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''Label1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''txtManagerComments control.
     '''</summary>
     '''<remarks>
@@ -41,31 +113,22 @@ Partial Public Class ReviewDetail
     Protected WithEvents txtManagerComments As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''ddlRating control.
+    '''divOverallStars control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlRating As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents divOverallStars As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''hdnReviewID control.
+    '''hdnOverallRatingValue control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents hdnReviewID As Global.System.Web.UI.WebControls.HiddenField
-
-    '''<summary>
-    '''btnFinalizeReview control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnFinalizeReview As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents hdnOverallRatingValue As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
     '''lblMessage control.
@@ -75,4 +138,22 @@ Partial Public Class ReviewDetail
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''btnSaveDraft control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSaveDraft As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnFinalizeAndPublish control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnFinalizeAndPublish As Global.System.Web.UI.WebControls.Button
 End Class

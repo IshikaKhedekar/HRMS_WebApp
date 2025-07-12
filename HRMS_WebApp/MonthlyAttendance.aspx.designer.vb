@@ -11,113 +11,113 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Attendance
+Partial Public Class MonthlyAttendance
 
     '''<summary>
-    '''btnPunchIn control.
+    '''divEmployeeFilter control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnPunchIn As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents divEmployeeFilter As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''btnPunchOut control.
+    '''ddlEmployees control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnPunchOut As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents ddlEmployees As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''lblPunchInTime control.
+    '''ddlMonth control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPunchInTime As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents ddlMonth As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''lblPunchOutTime control.
+    '''ddlYear control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPunchOutTime As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents ddlYear As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''lblPunchMessage control.
+    '''btnGenerateReport control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPunchMessage As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents btnGenerateReport As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnShowRegularizeModal control.
+    '''pnlReportContent control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnShowRegularizeModal As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents pnlReportContent As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''rptAttendanceHistory control.
+    '''litPresentDays control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents rptAttendanceHistory As Global.System.Web.UI.WebControls.Repeater
+    Protected WithEvents litPresentDays As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''txtDateToCorrect control.
+    '''litAbsentDays control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtDateToCorrect As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents litAbsentDays As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''txtNewPunchIn control.
+    '''litLeaveDays control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtNewPunchIn As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents litLeaveDays As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''txtNewPunchOut control.
+    '''litHolidays control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtNewPunchOut As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents litHolidays As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''txtReason control.
+    '''litWeekends control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtReason As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents litWeekends As Global.System.Web.UI.WebControls.Literal
 
     '''<summary>
-    '''btnSendRequest control.
+    '''rptMonthlyReport control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnSendRequest As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents rptMonthlyReport As Global.System.Web.UI.WebControls.Repeater
 End Class

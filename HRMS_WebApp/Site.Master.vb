@@ -70,6 +70,8 @@ Public Class Site
         Else
             litNotificationBadge.Visible = False
             lblNoNotifications.Visible = True
+            rptNotifications.DataBind()
+            lblNoNotifications.Visible = True
         End If
     End Sub
     ' ==========================
@@ -80,7 +82,7 @@ Public Class Site
 
         ' Reset classes first
         liRecruitment.Attributes("class") = ""
-        liPerformance.Attributes("class") = ""
+        liPerformance.Attributes("class") = "has-submenu"
         liPayroll.Attributes("class") = ""
         liPolicies.Attributes("class") = ""
         liAdminPanel.Visible = False
@@ -88,18 +90,24 @@ Public Class Site
         Select Case userRoleID
             Case 4 ' Employee Role
                 liRecruitment.Attributes("class") = "menu-locked"
-                '        liPerformance.Attributes("class") = "menu-locked"
+                liPerformance.Attributes("class") = "has-submenu menu-locked"  '        liPerformance.Attributes("class") = "menu-locked"
                 liPayroll.Attributes("class") = "menu-locked"
-
+                liLeaveReportsSubMenu.Visible = False
+                liAttendanceApprovals.Visible = False' Admin ko dikhega
             Case 3 ' Manager Role
                 liRecruitment.Attributes("class") = "menu-locked"
                 liPayroll.Attributes("class") = "menu-locked"
-
+                liAttendanceApprovals.Visible = True ' Admin ko dikhega
             Case 2 ' HR Role
                 ' All active except Admin Panel
-
+                liPerformanceAnalytics.Visible = True
+                liAttendanceApprovals.Visible = True ' Admin ko dikhega
+                liAttendanceAnalytics.Visible = True
             Case 1 ' SuperAdmin Role
                 liAdminPanel.Visible = True
+                liPerformanceAnalytics.Visible = True
+                liAttendanceApprovals.Visible = True ' Admin ko dikhega
+                liAttendanceAnalytics.Visible = True
         End Select
     End Sub
     ' ===============================================

@@ -126,15 +126,20 @@
   <ItemGroup>
     <Content Include="Announcements.aspx" />
     <Content Include="Attendance.aspx" />
+    <Content Include="AttendanceAnalytics.aspx" />
+    <Content Include="AttendanceApprovals.aspx" />
     <Content Include="AttendanceDataHandler.aspx" />
     <Content Include="Dashboard.aspx" />
     <Content Include="EmployeeDirectory.aspx" />
     <Content Include="LeaveManagement.aspx" />
     <Content Include="LeaveReport.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="MonthlyAttendance.aspx" />
     <Content Include="MyProfile.aspx" />
     <Content Include="Payroll.aspx" />
+    <Content Include="PeerFeedback.aspx" />
     <Content Include="Performance.aspx" />
+    <Content Include="PerformanceAnalytics.aspx" />
     <Content Include="Policies.aspx" />
     <Content Include="Recruitment.aspx" />
     <Content Include="Resignation.aspx" />
@@ -156,6 +161,20 @@
     <Compile Include="Attendance.aspx.vb">
       <DependentUpon>Attendance.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AttendanceAnalytics.aspx.designer.vb">
+      <DependentUpon>AttendanceAnalytics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AttendanceAnalytics.aspx.vb">
+      <DependentUpon>AttendanceAnalytics.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="AttendanceApprovals.aspx.designer.vb">
+      <DependentUpon>AttendanceApprovals.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AttendanceApprovals.aspx.vb">
+      <DependentUpon>AttendanceApprovals.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="AttendanceDataHandler.aspx.designer.vb">
       <DependentUpon>AttendanceDataHandler.aspx</DependentUpon>
@@ -199,6 +218,13 @@
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="MonthlyAttendance.aspx.designer.vb">
+      <DependentUpon>MonthlyAttendance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MonthlyAttendance.aspx.vb">
+      <DependentUpon>MonthlyAttendance.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -231,11 +257,25 @@
     <Compile Include="Payroll.aspx.vb">
       <DependentUpon>Payroll.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PeerFeedback.aspx.designer.vb">
+      <DependentUpon>PeerFeedback.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PeerFeedback.aspx.vb">
+      <DependentUpon>PeerFeedback.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Performance.aspx.designer.vb">
       <DependentUpon>Performance.aspx</DependentUpon>
     </Compile>
     <Compile Include="Performance.aspx.vb">
       <DependentUpon>Performance.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="PerformanceAnalytics.aspx.designer.vb">
+      <DependentUpon>PerformanceAnalytics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PerformanceAnalytics.aspx.vb">
+      <DependentUpon>PerformanceAnalytics.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Policies.aspx.designer.vb">

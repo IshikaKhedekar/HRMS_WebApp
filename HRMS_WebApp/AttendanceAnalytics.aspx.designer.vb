@@ -11,59 +11,41 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Dashboard
+Partial Public Class AttendanceAnalytics
 
     '''<summary>
-    '''litTotalEmployees control.
+    '''rptLateComers control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents litTotalEmployees As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents rptLateComers As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
-    '''linkPresentToday control.
+    '''rptOvertime control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents linkPresentToday As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    Protected WithEvents rptOvertime As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
-    '''litPresentToday control.
+    '''hdnDailyTrendData control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents litPresentToday As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents hdnDailyTrendData As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
-    '''litOnLeave control.
+    '''hdnStatusDistributionData control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents litOnLeave As Global.System.Web.UI.WebControls.Literal
-
-    '''<summary>
-    '''litUpcomingHolidays control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents litUpcomingHolidays As Global.System.Web.UI.WebControls.Literal
-
-    '''<summary>
-    '''litUpcomingBirthdays control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents litUpcomingBirthdays As Global.System.Web.UI.WebControls.Literal
+    Protected WithEvents hdnStatusDistributionData As Global.System.Web.UI.WebControls.HiddenField
 End Class

@@ -2,61 +2,69 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <!-- ===== DASHBOARD HEADER ===== -->
-    <div class="dashboard-header">
-        <h1><i class="fas fa-chart-line"></i> Indas Analytics HR Dashboard</h1>
-        <p>Welcome! Track employee metrics, leave status, and upcoming events.</p>
-    </div>
+<!-- ===== DASHBOARD HEADER ===== -->
+ <div class="dashboard-header">
+     <h1><i class="fas fa-chart-line"></i> Indas Analytics HR Dashboard</h1>
+     <p>Welcome! Track real-time employee metrics, leave status, and upcoming events.</p>
+ </div>
 
-    <!-- ===== DASHBOARD CARDS ===== -->
-    <div class="card-grid">
-        <!-- Total Employees -->
-        <asp:Panel ID="pnlTotalEmployees" runat="server" CssClass="card card-blue">
-            <div class="card-icon"><i class="fas fa-users"></i></div>
-            <div class="card-content">
-                <h4>Total Employees</h4>
-                <asp:Literal ID="litTotalEmployees" runat="server">0</asp:Literal>
-            </div>
-        </asp:Panel>
+ <!-- ===== DASHBOARD CARDS (ADVANCED & CLICKABLE) ===== -->
+ <div class="card-grid">
+     <!-- Total Employees -->
+     <a href="EmployeeDirectory.aspx" class="card-link">
+         <div class="card card-blue">
+             <div class="card-icon"><i class="fas fa-users"></i></div>
+             <div class="card-content">
+                 <h4>Total Employees</h4>
+                 <asp:Literal ID="litTotalEmployees" runat="server">0</asp:Literal>
+             </div>
+         </div>
+     </a>
 
-        <!-- Present Today -->
-        <asp:Panel ID="pnlPresentToday" runat="server" CssClass="card card-green">
-            <div class="card-icon"><i class="fas fa-user-check"></i></div>
-            <div class="card-content">
-                <h4>Present Today</h4>
-                <asp:Literal ID="litPresentToday" runat="server">0</asp:Literal>
-            </div>
-        </asp:Panel>
+     <!-- Present Today -->
+     <a href="MonthlyAttendance.aspx" class="card-link" id="linkPresentToday" runat="server">
+         <div class="card card-green">
+             <div class="card-icon"><i class="fas fa-user-check"></i></div>
+             <div class="card-content">
+                 <h4>Present Today</h4>
+                 <asp:Literal ID="litPresentToday" runat="server">0</asp:Literal>
+             </div>
+         </div>
+     </a>
 
-        <!-- On Leave -->
-        <asp:Panel ID="pnlOnLeave" runat="server" CssClass="card card-yellow">
-            <div class="card-icon"><i class="fas fa-user-clock"></i></div>
-            <div class="card-content">
-                <h4>On Leave</h4>
-                <asp:Literal ID="litOnLeave" runat="server">0</asp:Literal>
-            </div>
-        </asp:Panel>
+     <!-- On Leave -->
+     <a href="LeaveManagement.aspx" class="card-link">
+         <div class="card card-yellow">
+             <div class="card-icon"><i class="fas fa-user-clock"></i></div>
+             <div class="card-content">
+                 <h4>On Leave Today</h4>
+                 <asp:Literal ID="litOnLeave" runat="server">0</asp:Literal>
+             </div>
+         </div>
+     </a>
 
-        <!-- Upcoming Holidays -->
-        <asp:Panel ID="pnlUpcomingHolidays" runat="server" CssClass="card card-purple">
-            <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
-            <div class="card-content">
-                <h4>Upcoming Holidays</h4>
-                <asp:Literal ID="litUpcomingHolidays" runat="server">Independence Day - 15 Aug</asp:Literal>
-            </div>
-        </asp:Panel>
+     <!-- Upcoming Holidays -->
+     <a href="#" class="card-link">
+         <div class="card card-purple">
+             <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+             <div class="card-content">
+                 <h4>Upcoming Holiday</h4>
+                 <asp:Literal ID="litUpcomingHolidays" runat="server">No upcoming holidays.</asp:Literal>
+             </div>
+         </div>
+     </a>
 
-        <!-- Upcoming Birthdays -->
-        <asp:Panel ID="pnlUpcomingBirthdays" runat="server" CssClass="card card-pink">
-            <div class="card-icon"><i class="fas fa-birthday-cake"></i></div>
-            <div class="card-content">
-                <h4>Upcoming Birthdays</h4>
-                <asp:Literal ID="litUpcomingBirthdays" runat="server">Neha Sharma - 12 July</asp:Literal>
-            </div>
-        </asp:Panel>
-    </div>
-
-    <!-- ===== DASHBOARD STYLES ===== -->
+     <!-- Upcoming Birthdays -->
+     <a href="#" class="card-link">
+         <div class="card card-pink">
+             <div class="card-icon"><i class="fas fa-birthday-cake"></i></div>
+             <div class="card-content">
+                 <h4>Upcoming Birthday</h4>
+                 <asp:Literal ID="litUpcomingBirthdays" runat="server">No birthdays soon.</asp:Literal>
+             </div>
+         </div>
+     </a>
+ </div>    <!-- ===== DASHBOARD STYLES ===== -->
     <style>
         .dashboard-header {
             background: #ffffff;
@@ -102,6 +110,15 @@
             transform: translateY(-5px);
         }
 
+        .card-value {
+    font-size: 30px;
+    font-weight: 800;
+    color: #ffffff;
+    display: block;
+    margin-top: 5px;
+}
+
+
         .card-icon {
             font-size: 38px;
             margin-right: 20px;
@@ -109,6 +126,13 @@
             padding: 15px;
             border-radius: 50%;
         }
+
+
+        .card-link {
+    text-decoration: none;
+    display: block;
+    color: inherit;
+}
 
         .card-content h4 {
             margin: 0;

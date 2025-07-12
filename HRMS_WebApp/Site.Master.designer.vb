@@ -41,6 +41,33 @@ Partial Public Class Site
     Protected WithEvents liLeaveReportsSubMenu As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''liMonthlyReport control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents liMonthlyReport As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''liAttendanceApprovals control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents liAttendanceApprovals As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''liAttendanceAnalytics control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents liAttendanceAnalytics As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''liResignation control.
     '''</summary>
     '''<remarks>
@@ -66,6 +93,15 @@ Partial Public Class Site
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents liPerformance As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''liPerformanceAnalytics control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents liPerformanceAnalytics As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
     '''liPayroll control.

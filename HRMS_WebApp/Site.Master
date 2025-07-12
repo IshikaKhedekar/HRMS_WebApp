@@ -18,7 +18,7 @@
         /* Sidebar */
         .side-nav { width: 250px; background-color: #343a40; color: white; min-height: 100vh; transition: width 0.3s ease; overflow-x: hidden; flex-shrink: 0; }
         .side-nav.collapsed { width: 60px; }
-        .side-nav .logo { padding: 20px; text-align: center; background-color: #007bff; }
+        .side-nav .logo { padding: 20px; text-align: center; background-color: #1f2937; }
         .side-nav .logo h3 { margin: 0; font-size: 22px; }
         .side-nav.collapsed .logo h3 { display: none; }
         .side-nav ul { list-style-type: none; padding: 0; margin: 0; }
@@ -32,7 +32,7 @@
         .main-wrapper { flex-grow: 1; display: flex; flex-direction: column; }
         .top-header { background-color: #ffffff; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #dee2e6; }
         .hamburger { font-size: 22px; background: none; border: none; color: #333; cursor: pointer; }
-        .user-info { font-size: 16px; display: flex; align-items: center; }
+        .user-info { font-size: 16px; display: flex; align-items: center ; gap:15px; }
 
         /* Notification */
         .notification-dropdown { position: relative; margin-right: 10px; }
@@ -123,13 +123,30 @@
         <li runat="server" id="liLeaveReportsSubMenu"><a href="LeaveReport.aspx"><span class="nav-label">Leave Reports</span></a></li> <%-- Leave Reports ke liye naya sub-menu link --%>
     </ul>
 </li>
-                    <li><a href="Attendance.aspx"><i class="fas fa-clock"></i><span class="nav-label">Attendance</span></a></li>
+<li class="has-submenu"> 
+    <a href="#"><i class="fas fa-clock"></i><span class="nav-label">Attendance</span><i class="fas fa-chevron-down float-right ms-auto"></i></a>
+    <ul class="submenu">
+        <li><a href="Attendance.aspx"><span class="nav-label">My Attendance</span></a></li>
+        <li runat="server" id="liMonthlyReport"><a href="MonthlyAttendance.aspx"><span class="nav-label">Monthly Report</span></a></li>
+        <li runat="server" id="liAttendanceApprovals"><a href="AttendanceApprovals.aspx"><span class="nav-label">Team Approvals</span></a></li>
+        <li runat="server" id="liAttendanceAnalytics"><a href="AttendanceAnalytics.aspx"><span class="nav-label">Analytics</span></a></li>
+    </ul>
+</li><!-- ===== END OF ATTENDANCE SUBMENU ===== -->              
                     <li><a href="EmployeeDirectory.aspx"><i class="fas fa-users"></i><span class="nav-label">Employee Directory</span></a></li>
                     <li><a href="Announcements.aspx"><i class="fas fa-bullhorn"></i><span class="nav-label">Announcements</span></a></li>
                     <li runat="server" id="liResignation"><a href="Resignation.aspx"><i class="fas fa-sign-out-alt"></i><span class="nav-label">Resignation</span></a></li> <%-- NAYA LINK --%>
 
                     <li runat="server" id="liRecruitment"><a href="Recruitment.aspx"><i class="fas fa-briefcase"></i><span class="nav-label">Recruitment</span></a></li>
-                    <li runat="server" id="liPerformance"><a href="Performance.aspx"><i class="fas fa-chart-line"></i><span class="nav-label">Performance</span></a></li>
+                    <!-- ===== PERFORMANCE SUBMENU (FINAL WORKING VERSION) ===== -->
+                    <li runat="server" id="liPerformance" class="has-submenu"> 
+                        <a href="#"><i class="fas fa-chart-line"></i><span class="nav-label">Performance</span><i class="fas fa-chevron-down float-right ms-auto"></i></a>
+                        <ul class="submenu">
+                            <li runat="server" id="liPerformanceAnalytics"><a href="PerformanceAnalytics.aspx"><span class="nav-label">Analytics</span></a></li>
+                            <li><a href="Performance.aspx"><span class="nav-label">My Review / Team</span></a></li>
+                            <li><a href="PeerFeedback.aspx"><span class="nav-label">Peer Feedback</span></a></li>
+                        </ul>
+                    </li>
+                    <!-- ===== END OF PERFORMANCE SUBMENU ===== -->
                     <li runat="server" id="liPayroll"><a href="Payroll.aspx"><i class="fas fa-file-invoice-dollar"></i><span class="nav-label">Payroll</span></a></li>
                     <li runat="server" id="liPolicies"><a href="Policies.aspx"><i class="fas fa-file-alt"></i><span class="nav-label">Company Policies</span></a></li>
                     <li runat="server" id="liAdminPanel"><a href="Settings.aspx" style="background-color: #dc3545; color: white;"><i class="fas fa-cogs"></i><span class="nav-label">Admin Panel</span></a></li>

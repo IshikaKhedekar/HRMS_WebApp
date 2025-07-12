@@ -30,52 +30,43 @@ Public Class LeaveManagement
     End Sub
 
     ' === MY LEAVE DASHBOARD ===
+
     Private Sub LoadLeaveDashboardData(ByVal employeeID As Integer)
         Dim connStr As String = ConfigurationManager.ConnectionStrings("dbconnection").ToString()
 
-        ' Define total leave entitlements for Casual and Sick leave
-        ' These values are hardcoded as per your requirement.
-        ' In a more robust system, these would be fetched from a database or a configuration.
+        ' Define total leave entitlements
         Dim totalCasualLeave As Integer = 12
         Dim totalSickLeave As Integer = 8
 
-        ' Get used leave days for all types (from approved/HR approved leaves)
+        ' Get used leave days
         Dim usedCasualLeave As Integer = GetUsedLeaveDays(employeeID, "Casual Leave")
         Dim usedSickLeave As Integer = GetUsedLeaveDays(employeeID, "Sick Leave")
-        Dim usedPaidLeave As Integer = GetUsedLeaveDays(employeeID, "Paid Leave") ' This will be the count of paid leaves taken
+        Dim usedPaidLeave As Integer = GetUsedLeaveDays(employeeID, "Paid Leave")
 
-        ' Calculate available leave days for Casual and Sick
+        ' Calculate available leave
         Dim availableCasualLeave As Integer = totalCasualLeave - usedCasualLeave
         Dim availableSickLeave As Integer = totalSickLeave - usedSickLeave
 
-        ' Ensure available balance doesn't go below zero
         If availableCasualLeave < 0 Then availableCasualLeave = 0
         If availableSickLeave < 0 Then availableSickLeave = 0
 
-        ' Update leave balance labels in the dashboard
-        ' Casual Leave: Available / Total
+        ' Update UI labels
         lblCasualLeaveBalanceAvailable.Text = availableCasualLeave.ToString()
         lblCasualLeaveTotal.Text = totalCasualLeave.ToString()
-
-        ' Sick Leave: Available / Total
         lblSickLeaveBalanceAvailable.Text = availableSickLeave.ToString()
         lblSickLeaveTotal.Text = totalSickLeave.ToString()
-
-        ' Paid Leave: Just show the count of days taken
         lblPaidLeaveCountTaken.Text = usedPaidLeave.ToString()
 
-        ' --- UPCOMING HOLIDAYS LOGIC ---
+        ' === UPCOMING HOLIDAYS LOGIC ===
         Dim holidays As New List(Of Object)()
 
-        ' 1. Add static company holidays (hardcoded dates for the current year)
+        ' 1. Add static holidays
         holidays.Add(New With {.HolidayName = "Independence Day", .HolidayDate = New DateTime(DateTime.Now.Year, 8, 15)})
         holidays.Add(New With {.HolidayName = "Diwali", .HolidayDate = New DateTime(DateTime.Now.Year, 11, 1)})
-        ' Add more static holidays here if needed, e.g.:
-        ' holidays.Add(New With {.HolidayName = "Christmas", .HolidayDate = New DateTime(DateTime.Now.Year, 12, 25)})
 
-        ' 2. Dynamically add all upcoming Sundays as holidays for the next 6 months
+        ' 2. Add upcoming Sundays for next 6 months
         Dim startDateForSundays As Date = Date.Today
-        Dim endDateForSundays As Date = Date.Today.AddMonths(6) ' Look ahead 6 months
+        Dim endDateForSundays As Date = Date.Today.AddMonths(6)
 
         Dim currentDay As Date = startDateForSundays
         Do While currentDay <= endDateForSundays
@@ -85,24 +76,27 @@ Public Class LeaveManagement
             currentDay = currentDay.AddDays(1)
         Loop
 
-        ' 3. Optional: Sort holidays by date for better presentation
-        ' This ensures Sundays and static holidays are shown in chronological order.
+        ' 3. Sort holidays by date
         holidays = holidays.OrderBy(Function(h) h.HolidayDate).ToList()
-        ' Note: This implementation does not de-duplicate holidays if a static holiday falls on a Sunday.
-        ' For de-duplication, you would need to implement custom logic (e.g., using HashSet or GroupBy).
 
+        ' 4. FILTER to show only holidays in current month
+        Dim currentMonth As Integer = DateTime.Now.Month
+        Dim currentYear As Integer = DateTime.Now.Year
 
-        ' 4. Bind holidays to repeater
-        If holidays.Count > 0 Then
-            rptCompanyHolidays.DataSource = holidays
+        Dim currentMonthHolidays = holidays.Where(Function(h) h.HolidayDate.Month = currentMonth AndAlso h.HolidayDate.Year = currentYear).ToList()
+
+        ' 5. Bind to repeater
+        If currentMonthHolidays.Count > 0 Then
+            rptCompanyHolidays.DataSource = currentMonthHolidays
             rptCompanyHolidays.DataBind()
             lblNoCompanyHolidays.Visible = False
         Else
             rptCompanyHolidays.DataSource = Nothing
+            rptCompanyHolidays.DataBind()
             lblNoCompanyHolidays.Visible = True
         End If
 
-        ' Your Upcoming Leaves (fetched from database)
+        ' === UPCOMING PERSONAL LEAVES ===
         Dim queryUpcoming As String = "SELECT LeaveID, StartDate, EndDate, LeaveType, Status, Reason FROM Leaves WHERE EmployeeID = @EmployeeID AND EndDate >= GETDATE() ORDER BY StartDate ASC"
         Using conn As New SqlConnection(connStr)
             Using cmd As New SqlCommand(queryUpcoming, conn)
@@ -118,6 +112,7 @@ Public Class LeaveManagement
                     lblNoUpcomingMyLeaves.Visible = False
                 Else
                     rptUpcomingMyLeaves.DataSource = Nothing
+                    rptUpcomingMyLeaves.DataBind()
                     lblNoUpcomingMyLeaves.Visible = True
                 End If
             End Using

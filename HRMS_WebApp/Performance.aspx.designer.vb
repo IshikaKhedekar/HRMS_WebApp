@@ -50,6 +50,24 @@ Partial Public Class Performance
     Protected WithEvents txtEmployeeComments As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''rptMyKPIs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptMyKPIs As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''lblNoMyKPIs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNoMyKPIs As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''txtManagerComments control.
     '''</summary>
     '''<remarks>
@@ -120,4 +138,139 @@ Partial Public Class Performance
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblNoTeamReviews As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''pnlCycleManagement control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlCycleManagement As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''rptCycles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptCycles As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''txtCycleName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtCycleName As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtCycleStartDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtCycleStartDate As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtCycleEndDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtCycleEndDate As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''btnAddCycle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnAddCycle As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblCycleMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblCycleMessage As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''pnlAssignKPIs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlAssignKPIs As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''lblAssignKpiCycleName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblAssignKpiCycleName As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''ddlEmployeesForKPI control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlEmployeesForKPI As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''pnlAvailableKPIs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlAvailableKPIs As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''cblMasterKPIs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cblMasterKPIs As Global.System.Web.UI.WebControls.CheckBoxList
+
+    '''<summary>
+    '''btnAssignSelectedKPIs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnAssignSelectedKPIs As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''pnlAssignedKPIs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlAssignedKPIs As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''rptAssignedKPIs control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptAssignedKPIs As Global.System.Web.UI.WebControls.Repeater
 End Class

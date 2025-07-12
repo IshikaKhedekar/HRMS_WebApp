@@ -11,113 +11,113 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Attendance
+Partial Public Class PeerFeedback
 
     '''<summary>
-    '''btnPunchIn control.
+    '''rptRequestsForMe control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnPunchIn As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents rptRequestsForMe As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
-    '''btnPunchOut control.
+    '''lblNoRequestsForMe control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnPunchOut As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents lblNoRequestsForMe As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblPunchInTime control.
+    '''btnShowRequestModal control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPunchInTime As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents btnShowRequestModal As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''lblPunchOutTime control.
+    '''rptRequestsSent control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPunchOutTime As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents rptRequestsSent As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
-    '''lblPunchMessage control.
+    '''lblNoRequestsSent control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPunchMessage As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblNoRequestsSent As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''btnShowRegularizeModal control.
+    '''ddlForEmployee control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnShowRegularizeModal As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents ddlForEmployee As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''rptAttendanceHistory control.
+    '''cblFromEmployees control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents rptAttendanceHistory As Global.System.Web.UI.WebControls.Repeater
+    Protected WithEvents cblFromEmployees As Global.System.Web.UI.WebControls.CheckBoxList
 
     '''<summary>
-    '''txtDateToCorrect control.
+    '''btnSendRequests control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtDateToCorrect As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents btnSendRequests As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''txtNewPunchIn control.
+    '''lblProvideFeedbackFor control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtNewPunchIn As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents lblProvideFeedbackFor As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''txtNewPunchOut control.
+    '''hdnPeerFeedbackID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtNewPunchOut As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents hdnPeerFeedbackID As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
-    '''txtReason control.
+    '''txtFeedbackComments control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtReason As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtFeedbackComments As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''btnSendRequest control.
+    '''btnSubmitFeedback control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnSendRequest As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnSubmitFeedback As Global.System.Web.UI.WebControls.Button
 End Class

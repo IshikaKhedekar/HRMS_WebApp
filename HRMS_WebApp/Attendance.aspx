@@ -1,195 +1,177 @@
-﻿<%@ Page Title="Attendance" Language="vb" MasterPageFile="~/Site.master" AutoEventWireup="false" CodeBehind="Attendance.aspx.vb" Inherits="HRMS_WebApp.Attendance" %>
-<%-- DevExtreme Registration (dx tagPrefix) ko hata diya gaya hai --%>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="Attendance.aspx.vb" Inherits="HRMS_WebApp.Attendance" %>
 
 <asp:Content ID="ContentHead" ContentPlaceHolderID="head" runat="server">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-        .info-card { background-color: #fff; border: 1px solid #dee2e6; border-radius: .375rem; margin-bottom: 1.5rem; }
-        .info-card-header { padding: 1rem 1.25rem; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6; font-size: 1.1rem; font-weight: 600; }
-        .info-card-body { padding: 1.25rem; }
-        .data-table { width: 100%; border-collapse: collapse; }
-        .data-table th, .data-table td { border: 1px solid #e9ecef; padding: 12px; text-align: left; }
-        .data-table th { background-color: #343a40; color: white; }
-        /* Status text colors */
-        .status-present-text { color: #198754; font-weight: bold; }
-        .status-absent-text { color: #dc3545; font-weight: bold; }
-        .status-on-leave-text { color: #ffc107; font-weight: bold; }
+        .punch-card-wrapper {
+    background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+    color: white;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.punch-card-wrapper h4 {
+    font-weight: 300; /* Lighter font weight for heading */
+}
+/* REPLACE THE OLD .punch-btn with this NEW one */
+.punch-btn {
+    font-size: 1.1rem;      /* <<< Font size kam kiya */
+    font-weight: 600;
+    padding: 0.6rem 1.5rem; /* <<< Padding kam ki */
+    border-radius: 50px;
+    transition: all 0.3s;
+    border: 2px solid white;
+}
+
+.punch-btn.punch-in {
+    background-color: transparent;
+    color: white;
+}
+
+.punch-btn.punch-in:hover {
+    background-color: white;
+    color: #198754;
+}
+
+.punch-btn.punch-out {
+    background-color: transparent;
+    color: white;
+}
+
+.punch-btn.punch-out:hover {
+    background-color: white;
+    color: #dc3545;
+}
+
+/* Disabled button style */
+.punch-btn:disabled {
+    background-color: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.5);
+    cursor: not-allowed;
+}
+
+.punch-info {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    background: rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.punch-info .info-label {
+    font-weight: 300;
+}
+.punch-info .info-value {
+    font-weight: 600;
+}
+
+#<%= lblPunchMessage.ClientID %>
+{
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+      
     </style>
 </asp:Content>
 
 <asp:Content ID="ContentMain" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     
-    <div class="page-header" style="background-color: #20c997; color: white; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
-        <h2>Attendance Management</h2>
-        <p>Your portal for attendance records and requests.</p>
+    <div class="page-header" style="background-color: #0d6efd; color: white; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+        <h2>My Attendance</h2>
+        <p>Mark your daily attendance and view your history.</p>
     </div>
 
-    <!-- Hidden field to pass user role from server to client -->
-    <asp:HiddenField ID="hdnUserRoleID" runat="server" />
-
-    <!-- ===== EMPLOYEE / MANAGER VIEW (BOOTSTRAP TABS & TABLES) ===== -->
-    <asp:Panel ID="pnlEmployeeManagerView" runat="server" Visible="false">
-        <ul class="nav nav-tabs" id="attendanceTabs" role="tablist">
-            <li class="nav-item" role="presentation"><button class="nav-link active" id="my-history-tab" data-bs-toggle="tab" data-bs-target="#my-history" type="button">My Attendance History</button></li>
-            <li class="nav-item" role="presentation"><button class="nav-link" id="regularize-tab" data-bs-toggle="tab" data-bs-target="#regularize" type="button">Regularize Attendance</button></li>
-            <li class="nav-item" role="presentation" runat="server" id="liTeamTab"><button class="nav-link" id="team-approvals-tab" data-bs-toggle="tab" data-bs-target="#team-approvals" type="button">Team Approvals</button></li>
-        </ul>
-        <div class="tab-content border border-top-0 p-3 bg-white">
-            <!-- My Attendance History Tab -->
-            <div class="tab-pane fade show active" id="my-history" role="tabpanel">
-                <div class="info-card">
-                    <div class="info-card-header">Your Recent Attendance</div>
-                    <div class="info-card-body">
-                        <asp:Repeater ID="rptMyAttendance" runat="server" OnItemDataBound="rptMyAttendance_ItemDataBound">
-                            <HeaderTemplate><table class="table table-sm table-striped"><thead><tr><th>Date</th><th>Status</th><th>In-Time</th><th>Out-Time</th></tr></thead><tbody></HeaderTemplate>
-                            <ItemTemplate>
-                                <tr>
-                                    <td><%# Eval("FormattedDate") %></td>
-                                    <td><span class='<%# Eval("StatusCssClass") %>'><%# Eval("Status") %></span></td>
-                                    <td><%# Eval("FormattedPunchIn") %></td>
-                                    <td><%# Eval("FormattedPunchOut") %></td>
-                                </tr>
-                            </ItemTemplate>
-                            <FooterTemplate></tbody></table></FooterTemplate>
-                        </asp:Repeater>
-                        <asp:Label ID="lblNoMyAttendance" runat="server" Text="No attendance records found." Visible="false" CssClass="text-muted p-3"></asp:Label>
-                    </div>
+    <div class="row">
+        <!-- Punch In/Out Card -->
+        <div class="col-md-5">
+    <div class="punch-card-wrapper">
+        <h4>Today's Attendance (<%= DateTime.Now.ToString("dd-MMM-yyyy") %>)</h4>
+        <div class="mt-4 mb-4">
+            <asp:Button ID="btnPunchIn" runat="server" Text="Punch In" CssClass="btn punch-btn punch-in" OnClick="btnPunchIn_Click" />
+            <asp:Button ID="btnPunchOut" runat="server" Text="Punch Out" CssClass="btn punch-btn punch-out ms-2" OnClick="btnPunchOut_Click" />
+        </div>
+        <div class="punch-info">
+            <div class="row">
+                <div class="col-6 text-center">
+                    <span class="info-label d-block">Punch In</span>
+                    <asp:Label ID="lblPunchInTime" runat="server" Text="--:--" CssClass="info-value"></asp:Label>
                 </div>
-            </div>
-            <!-- Regularize Attendance Tab -->
-            <div class="tab-pane fade" id="regularize" role="tabpanel">
-                <div class="info-card">
-                    <div class="info-card-header">Request Attendance Regularization</div>
-                    <div class="info-card-body">
-                        <div class="mb-3"><label class="form-label">Date to Correct:</label><asp:TextBox ID="txtRegDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox></div>
-                        <div class="mb-3"><label class="form-label">Correct Punch In Time:</label><asp:TextBox ID="txtRegPunchIn" runat="server" TextMode="Time" CssClass="form-control"></asp:TextBox></div>
-                        <div class="mb-3"><label class="form-label">Correct Punch Out Time:</label><asp:TextBox ID="txtRegPunchOut" runat="server" TextMode="Time" CssClass="form-control"></asp:TextBox></div>
-                        <div class="mb-3"><label class="form-label">Reason:</label><asp:TextBox ID="txtRegReason" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control"></asp:TextBox></div>
-                        <asp:Button ID="btnSubmitRegularization" runat="server" Text="Submit Request" CssClass="btn btn-primary" OnClick="btnSubmitRegularization_Click" />
-                        <asp:Label ID="lblRegMessage" runat="server" CssClass="d-block mt-2"></asp:Label>
-                    </div>
-                </div>
-            </div>
-            <!-- Team Approvals Tab -->
-            <div class="tab-pane fade" id="team-approvals" role="tabpanel">
-                 <div class="info-card">
-                    <div class="info-card-header">Pending Regularization Requests for Your Team</div>
-                    <div class="info-card-body">
-                        <asp:Repeater ID="rptTeamRequests" runat="server" OnItemCommand="rptTeamRequests_ItemCommand" OnItemDataBound="rptTeamRequests_ItemDataBound">
-                            <HeaderTemplate><table class="table table-sm table-striped"><thead><tr><th>Employee</th><th>Date</th><th>Requested In/Out</th><th>Reason</th><th>Actions</th></tr></thead><tbody></HeaderTemplate>
-                            <ItemTemplate>
-                                <tr>
-                                    <td><%# Eval("EmployeeName") %></td>
-                                    <td><%# Eval("FormattedDate") %></td>
-                                    <td><%# Eval("FormattedTime") %></td>
-                                    <td><%# Eval("Reason") %></td>
-                                    <td>
-                                        <asp:Button ID="btnApprove" runat="server" Text="Approve" CommandName="Approve" CommandArgument='<%# Eval("RequestID") %>' CssClass="btn btn-sm btn-success" />
-                                        <asp:Button ID="btnReject" runat="server" Text="Reject" CommandName="Reject" CommandArgument='<%# Eval("RequestID") %>' CssClass="btn btn-sm btn-danger" />
-                                    </td>
-                                </tr>
-                            </ItemTemplate>
-                            <FooterTemplate></tbody></table></FooterTemplate>
-                         </asp:Repeater>
-                         <asp:Label ID="lblNoTeamRequests" runat="server" Text="No pending requests for your team." Visible="false" CssClass="text-muted p-3"></asp:Label>
-                    </div>
+                <div class="col-6 text-center">
+                    <span class="info-label d-block">Punch Out</span>
+                    <asp:Label ID="lblPunchOutTime" runat="server" Text="--:--" CssClass="info-value"></asp:Label>
                 </div>
             </div>
         </div>
-    </asp:Panel>
-
-    <!-- ===== ADMIN / HR VIEW (Table with Modal for Add/Edit) ===== -->
-    <asp:Panel ID="pnlAdminView" runat="server" Visible="false">
-         <div class="info-card">
-            <div class="info-card-header d-flex justify-content-between align-items-center">
-                <span>Manage All Company Attendance Records</span>
-                <asp:Button ID="btnAddAdminRecord" runat="server" Text="Add New Record" CssClass="btn btn-primary" OnClick="btnAddAdminRecord_Click" />
-            </div>
-            <div class="info-card-body">
-                <asp:Repeater ID="rptAllAttendance" runat="server" OnItemCommand="rptAllAttendance_ItemCommand" OnItemDataBound="rptAllAttendance_ItemDataBound">
-                    <HeaderTemplate>
-                        <table class="table table-bordered table-striped data-table">
-                            <thead>
-                                <tr>
-                                    <th>Log ID</th>
-                                    <th>Employee Name</th>
-                                    <th>Date</th>
-                                    <th>Punch In</th>
-                                    <th>Punch Out</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                    </HeaderTemplate>
-                    <ItemTemplate>
-                        <tr>
-                            <td><%# Eval("LogID") %></td>
-                            <td><%# Eval("EmployeeName") %></td>
-                            <td><%# Eval("FormattedDate") %></td>
-                            <td><%# Eval("FormattedPunchIn") %></td>
-                            <td><%# Eval("FormattedPunchOut") %></td>
-                            <td><span class='<%# Eval("StatusCssClass") %>'><%# Eval("Status") %></span></td>
-                            <td class="action-buttons">
-                                <asp:Button ID="btnEditAdminRec" runat="server" Text="Edit" CommandName="EditAdmin" CommandArgument='<%# Eval("LogID") %>' CssClass="btn btn-sm btn-info" />
-                                <asp:Button ID="btnDeleteAdminRec" runat="server" Text="Delete" CommandName="DeleteAdmin" CommandArgument='<%# Eval("LogID") %>' OnClientClick="return confirm('Are you sure you want to delete this record?');" CssClass="btn btn-sm btn-danger" />
-                            </td>
-                        </tr>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                            </tbody>
-                        </table>
-                    </FooterTemplate>
-                </asp:Repeater>
-                <asp:Label ID="lblNoAllAttendance" runat="server" Text="No attendance records found for the company." Visible="false" CssClass="text-muted"></asp:Label>
+        <asp:Label ID="lblPunchMessage" runat="server" CssClass="mt-3 d-block"></asp:Label>
+    </div>
+             <!-- Regularization Request -->
+            <div class="punch-card mt-4">
+                <h5>Forgot to Punch?</h5>
+                <p class="text-muted small">If you missed punching in or out, you can send a regularization request to your manager.</p>
+                 <asp:Button ID="btnShowRegularizeModal" runat="server" Text="Request Regularization" CssClass="btn btn-warning" OnClick="btnShowRegularizeModal_Click" />
             </div>
         </div>
-        
-        <!-- Admin Add/Edit Modal (Bootstrap Modal) -->
-        <div class="modal fade" id="adminRecordModal" tabindex="-1" aria-labelledby="adminRecordModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="adminRecordModalLabel">Add/Edit Attendance Record</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <asp:HiddenField ID="hdnAdminLogID" runat="server" Value="0" />
-                        <div class="mb-3">
-                            <label class="form-label">Employee ID</label>
-                            <asp:TextBox ID="txtAdminEmployeeID" runat="server" CssClass="form-control"></asp:TextBox>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Date</label>
-                            <asp:TextBox ID="txtAdminLogDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Punch In Time</label>
-                            <asp:TextBox ID="txtAdminPunchInTime" runat="server" TextMode="Time" CssClass="form-control"></asp:TextBox>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Punch Out Time</label>
-                            <asp:TextBox ID="txtAdminPunchOutTime" runat="server" TextMode="Time" CssClass="form-control"></asp:TextBox>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Status</label>
-                            <asp:DropDownList ID="ddlAdminStatus" runat="server" CssClass="form-select">
-                                <asp:ListItem>Present</asp:ListItem>
-                                <asp:ListItem>Absent</asp:ListItem>
-                                <asp:ListItem>On Leave</asp:ListItem>
-                                <asp:ListItem>Holiday</asp:ListItem>
-                            </asp:DropDownList>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <asp:Label ID="lblAdminModalMessage" runat="server" CssClass="me-auto"></asp:Label>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <asp:Button ID="btnSaveAdminRecord" runat="server" Text="Save Record" CssClass="btn btn-primary" OnClick="btnSaveAdminRecord_Click" />
-                    </div>
+
+        <!-- Attendance History -->
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header">
+                    <h4>My Attendance History</h4>
+                </div>
+                <div class="card-body">
+                    <asp:Repeater ID="rptAttendanceHistory" runat="server">
+                        <HeaderTemplate><table class="table table-striped history-table"><thead><tr><th>Date</th><th>Punch In</th><th>Punch Out</th><th>Status</th></tr></thead><tbody></HeaderTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td><%# Eval("LogDate", "{0:dd-MMM-yyyy}") %></td>
+                                <td><%# FormatTime(Eval("PunchInTime")) %></td>
+                                <td><%# FormatTime(Eval("PunchOutTime")) %></td>
+                                <td><span class="badge <%# GetStatusBadge(Eval("Status").ToString()) %>"><%# Eval("Status") %></span></td>
+                            </tr>
+                        </ItemTemplate>
+                        <FooterTemplate></tbody></table></FooterTemplate>
+                    </asp:Repeater>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    <!-- Regularization Modal -->
+    <div class="modal fade" id="regularizeModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h5 class="modal-title">Attendance Regularization Request</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Date to Correct:</label>
+                        <asp:TextBox ID="txtDateToCorrect" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New Punch In Time:</label>
+                        <asp:TextBox ID="txtNewPunchIn" runat="server" CssClass="form-control" TextMode="Time"></asp:TextBox>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New Punch Out Time:</label>
+                        <asp:TextBox ID="txtNewPunchOut" runat="server" CssClass="form-control" TextMode="Time"></asp:TextBox>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Reason:</label>
+                        <asp:TextBox ID="txtReason" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control"></asp:TextBox>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <asp:Button ID="btnSendRequest" runat="server" Text="Send Request" CssClass="btn btn-primary" OnClick="btnSendRequest_Click" />
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </asp:Content>
